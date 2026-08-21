@@ -452,7 +452,7 @@ Reviator AI is designed as an intelligent co-pilot for revenue recovery—helpin
 
 ---
 
-## Author
+## Developer
 
 **Kalyan Baraik**
 
