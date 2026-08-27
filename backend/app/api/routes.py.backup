@@ -1,0 +1,178 @@
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from app.agents.recovery_agent import run_recovery_agent
+
+from app.core.database import get_db
+
+from app.models.transaction import Transaction
+from app.models.transaction_db import TransactionDB
+
+from app.services.recovery_service import (
+    calculate_recovery_probability,
+    calculate_recovery_score,
+    determine_priority,
+    determine_recovery_channel,
+    generate_recovery_reasons,
+    recommend_recovery_action,
+)
+
+
+router = APIRouter(
+    prefix="/api/transactions",
+    tags=["Transactions"],
+)
+
+
+@router.post("/")
+async def analyse_transaction(
+    transaction: Transaction,
+    db: Session = Depends(get_db),
+):
+
+    # Non-failed transaction does not require recovery
+    if transaction.status.value != "failed":
+
+        return {
+            "transaction_id": transaction.transaction_id,
+            "message": "Transaction does not require recovery.",
+            "recovery_score": 0,
+            "recovery_probability": 0.0,
+            "recovery_priority": "low",
+            "recommended_action": "no_action_required",
+            "recovery_channel": "none",
+            "reasons": [],
+        }
+
+    # ----------------------------------------
+    # AI Recovery Analysis
+    # ----------------------------------------
+
+    recovery_score = calculate_recovery_score(transaction)
+
+    recovery_probability = calculate_recovery_probability(
+        recovery_score
+    )
+
+    priority = determine_priority(
+        recovery_score
+    )
+
+    recovery_channel = determine_recovery_channel(
+        transaction,
+        recovery_score,
+    )
+
+    recommended_action = recommend_recovery_action(
+        transaction,
+        recovery_score,
+    )
+
+    reasons = generate_recovery_reasons(
+        transaction,
+        recovery_score,
+    )
+
+    # ----------------------------------------
+    # Save transaction to database
+    # ----------------------------------------
+
+    transaction_db = TransactionDB(
+        transaction_id=transaction.transaction_id,
+        customer_id=transaction.customer_id,
+        amount=transaction.amount,
+        currency=transaction.currency,
+        status=transaction.status.value,
+        failure_reason=transaction.failure_reason,
+        previous_successful_payments=(
+            transaction.previous_successful_payments
+        ),
+        previous_failed_payments=(
+            transaction.previous_failed_payments
+        ),
+        revenue_at_risk=transaction.amount,
+        recovery_score=recovery_score,
+        recovery_probability=recovery_probability,
+        recovery_priority=priority,
+        recommended_action=recommended_action,
+        recovery_channel=recovery_channel,
+    )
+
+    db.add(transaction_db)
+    db.commit()
+    db.refresh(transaction_db)
+
+    # ----------------------------------------
+    # API Response
+    # ----------------------------------------
+
+    return {
+        "transaction_id": transaction.transaction_id,
+        "customer_id": transaction.customer_id,
+        "amount": transaction.amount,
+        "currency": transaction.currency,
+        "failure_reason": transaction.failure_reason,
+        "revenue_at_risk": transaction.amount,
+        "recovery_score": recovery_score,
+        "recovery_probability": recovery_probability,
+        "recovery_priority": priority,
+        "recommended_action": recommended_action,
+        "recovery_channel": recovery_channel,
+        "reasons": reasons,
+        "database_status": "saved",
+    }
+
+
+@router.post("/{transaction_id}/agent")
+async def run_agent(
+    transaction_id: str,
+    transaction: Transaction,
+):
+    """
+    Run the Reviator AI Recovery Agent
+    for a failed transaction.
+    """
+
+    if transaction.transaction_id != transaction_id:
+
+        return {
+            "error": "Transaction ID mismatch."
+        }
+
+    return run_recovery_agent(transaction)
+
+@router.get("/{transaction_id}")
+async def get_transaction(
+    transaction_id: str,
+    db: Session = Depends(get_db),
+):
+    transaction = (
+        db.query(TransactionDB)
+        .filter(
+            TransactionDB.transaction_id == transaction_id
+        )
+        .first()
+    )
+
+    if not transaction:
+        raise HTTPException(
+            status_code=404,
+            detail="Transaction not found.",
+        )
+
+    return {
+        "transaction_id": transaction.transaction_id,
+        "customer_id": transaction.customer_id,
+        "amount": transaction.amount,
+        "currency": transaction.currency,
+        "status": transaction.status,
+        "failure_reason": transaction.failure_reason,
+        "previous_successful_payments": transaction.previous_successful_payments,
+        "previous_failed_payments": transaction.previous_failed_payments,
+        "revenue_at_risk": transaction.revenue_at_risk,
+        "recovery_score": transaction.recovery_score,
+        "recovery_probability": transaction.recovery_probability,
+        "recovery_priority": transaction.recovery_priority,
+        "recommended_action": transaction.recommended_action,
+        "recovery_channel": transaction.recovery_channel,
+    }

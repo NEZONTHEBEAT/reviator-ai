@@ -1,0 +1,310 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==========================================================================
+   THEME TOKENS — provided by Nez (tweakcn export). Kept verbatim.
+   ========================================================================== */
+@layer base {
+  :root {
+    --background: 0 0% 98.8235%;
+    --foreground: 0 0% 9.0196%;
+    --card: 0 0% 98.8235%;
+    --card-foreground: 0 0% 9.0196%;
+    --popover: 0 0% 98.8235%;
+    --popover-foreground: 0 0% 32.1569%;
+    --primary: 151.1278 100% 26.0784%;
+    --primary-foreground: 153.3333 13.0435% 13.5294%;
+    --secondary: 0 0% 99.2157%;
+    --secondary-foreground: 0 0% 9.0196%;
+    --muted: 0 0% 92.9412%;
+    --muted-foreground: 0 0% 12.5490%;
+    --accent: 0 0% 92.9412%;
+    --accent-foreground: 0 0% 12.5490%;
+    --destructive: 9.8901 81.9820% 43.5294%;
+    --destructive-foreground: 0 100% 99.4118%;
+    --border: 0 0% 87.4510%;
+    --input: 0 0% 96.4706%;
+    --ring: 151.3274 66.8639% 66.8627%;
+    --chart-1: 151.3274 66.8639% 66.8627%;
+    --chart-2: 217.2193 91.2195% 59.8039%;
+    --chart-3: 258.3117 89.5349% 66.2745%;
+    --chart-4: 37.6923 92.1260% 50.1961%;
+    --chart-5: 160.1183 84.0796% 39.4118%;
+    --sidebar: 0 0% 98.8235%;
+    --sidebar-foreground: 0 0% 43.9216%;
+    --sidebar-primary: 151.3274 66.8639% 66.8627%;
+    --sidebar-primary-foreground: 153.3333 13.0435% 13.5294%;
+    --sidebar-accent: 0 0% 92.9412%;
+    --sidebar-accent-foreground: 0 0% 12.5490%;
+    --sidebar-border: 0 0% 87.4510%;
+    --sidebar-ring: 151.3274 66.8639% 66.8627%;
+    --font-sans: Outfit, sans-serif;
+    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.5rem;
+    --shadow-x: 0px;
+    --shadow-y: 1px;
+    --shadow-blur: 3px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.17;
+    --shadow-color: #000000;
+    --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+    --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+    --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+    --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+    --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 2px 4px -1px hsl(0 0% 0% / 0.17);
+    --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 4px 6px -1px hsl(0 0% 0% / 0.17);
+    --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 8px 10px -1px hsl(0 0% 0% / 0.17);
+    --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
+    --tracking-normal: 0.025em;
+    --spacing: 0.25rem;
+  }
+
+  .dark {
+    --background: 0 0% 7.0588%;
+    --foreground: 214.2857 31.8182% 91.3725%;
+    --card: 0 0% 9.0196%;
+    --card-foreground: 214.2857 31.8182% 91.3725%;
+    --popover: 0 0% 14.1176%;
+    --popover-foreground: 0 0% 66.2745%;
+    --primary: 154.8980 100.0000% 19.2157%;
+    --primary-foreground: 152.7273 19.2982% 88.8235%;
+    --secondary: 0 0% 14.1176%;
+    --secondary-foreground: 0 0% 98.0392%;
+    --muted: 0 0% 12.1569%;
+    --muted-foreground: 0 0% 63.5294%;
+    --accent: 0 0% 19.2157%;
+    --accent-foreground: 0 0% 98.0392%;
+    --destructive: 6.6667 60.0000% 20.5882%;
+    --destructive-foreground: 12.0000 12.1951% 91.9608%;
+    --border: 0 0% 16.0784%;
+    --input: 0 0% 14.1176%;
+    --ring: 141.8919 69.1589% 58.0392%;
+    --chart-1: 141.8919 69.1589% 58.0392%;
+    --chart-2: 213.1169 93.9024% 67.8431%;
+    --chart-3: 255.1351 91.7355% 76.2745%;
+    --chart-4: 43.2558 96.4126% 56.2745%;
+    --chart-5: 172.4551 66.0079% 50.3922%;
+    --sidebar: 0 0% 7.0588%;
+    --sidebar-foreground: 0 0% 53.7255%;
+    --sidebar-primary: 154.8980 100.0000% 19.2157%;
+    --sidebar-primary-foreground: 152.7273 19.2982% 88.8235%;
+    --sidebar-accent: 0 0% 19.2157%;
+    --sidebar-accent-foreground: 0 0% 98.0392%;
+    --sidebar-border: 0 0% 16.0784%;
+    --sidebar-ring: 141.8919 69.1589% 58.0392%;
+    --font-sans: Outfit, sans-serif;
+    --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.5rem;
+    --shadow-x: 0px;
+    --shadow-y: 1px;
+    --shadow-blur: 3px;
+    --shadow-spread: 0px;
+    --shadow-opacity: 0.17;
+    --shadow-color: #000000;
+    --shadow-2xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+    --shadow-xs: 0px 1px 3px 0px hsl(0 0% 0% / 0.09);
+    --shadow-sm: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+    --shadow: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 1px 2px -1px hsl(0 0% 0% / 0.17);
+    --shadow-md: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 2px 4px -1px hsl(0 0% 0% / 0.17);
+    --shadow-lg: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 4px 6px -1px hsl(0 0% 0% / 0.17);
+    --shadow-xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.17), 0px 8px 10px -1px hsl(0 0% 0% / 0.17);
+    --shadow-2xl: 0px 1px 3px 0px hsl(0 0% 0% / 0.43);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-sans);
+    letter-spacing: var(--tracking-normal);
+    -webkit-font-smoothing: antialiased;
+  }
+  ::selection {
+    @apply bg-primary text-primary-foreground;
+  }
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ==========================================================================
+   COMPONENTS — Reviator AI additions
+   ========================================================================== */
+@layer components {
+  /* Hard-shadow "system" button — same offset-duplicate mechanism as the
+     button-50 spec, rebuilt with theme tokens so it inverts cleanly in dark mode. */
+  .btn-hard {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-6 py-3 text-sm font-semibold
+           select-none whitespace-nowrap transition-transform duration-100 ease-out
+           disabled:opacity-50 disabled:pointer-events-none;
+    font-family: var(--font-sans);
+    background-color: hsl(var(--foreground));
+    color: hsl(var(--background));
+    border: 1px solid hsl(var(--foreground));
+    box-shadow: hsl(var(--background)) 4px 4px 0 0, hsl(var(--foreground)) 4px 4px 0 1px;
+  }
+  .btn-hard:hover {
+    transform: translate(-1px, -1px);
+  }
+  .btn-hard:active:not(:disabled) {
+    transform: translate(2px, 2px);
+    box-shadow: hsl(var(--background)) 2px 2px 0 0, hsl(var(--foreground)) 2px 2px 0 1px;
+  }
+
+  .btn-hard-outline {
+    @apply btn-hard;
+    background-color: hsl(var(--card));
+    color: hsl(var(--foreground));
+  }
+
+  .btn-hard-primary {
+    @apply btn-hard;
+    background-color: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    border-color: hsl(var(--primary));
+    box-shadow: hsl(var(--background)) 4px 4px 0 0, hsl(var(--primary)) 4px 4px 0 1px;
+  }
+  .btn-hard-primary:active:not(:disabled) {
+    box-shadow: hsl(var(--background)) 2px 2px 0 0, hsl(var(--primary)) 2px 2px 0 1px;
+  }
+
+  .btn-hard-sm {
+    @apply px-4 py-2 text-xs;
+  }
+
+  .btn-ghost-icon {
+    @apply inline-flex h-9 w-9 items-center justify-center rounded-md text-foreground/70
+           transition-colors hover:bg-accent hover:text-foreground;
+  }
+
+  /* Status pill (backend connectivity) */
+  .status-pill {
+    @apply inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-medium;
+  }
+  .status-pill .dot {
+    @apply h-2 w-2 rounded-full;
+  }
+  .status-pill.is-connected {
+    @apply border-[hsl(var(--chart-1)_/_0.3)] bg-[hsl(var(--chart-1)_/_0.1)] text-[hsl(var(--chart-1))];
+  }
+  .status-pill.is-connected .dot {
+    background-color: hsl(var(--chart-1));
+    box-shadow: 0 0 0 3px hsl(var(--chart-1) / 0.2);
+  }
+  .status-pill.is-disconnected {
+    @apply border-destructive/30 bg-destructive/10 text-destructive;
+  }
+  .status-pill.is-disconnected .dot {
+    @apply bg-destructive animate-pulse-dot;
+  }
+  .status-pill.is-checking {
+    @apply border-border bg-muted text-muted-foreground;
+  }
+  .status-pill.is-checking .dot {
+    @apply bg-muted-foreground animate-pulse-dot;
+  }
+
+  /* Cards */
+  .surface-card {
+    @apply rounded-xl border border-border bg-card text-card-foreground shadow-sm;
+  }
+
+  /* Analysis badges */
+  .badge {
+    @apply inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .badge-success {
+    @apply bg-[hsl(var(--chart-1)_/_0.12)] text-[hsl(var(--chart-1))];
+  }
+  .badge-pending {
+    @apply bg-[hsl(var(--chart-4)_/_0.15)] text-[hsl(var(--chart-4))];
+  }
+  .badge-failed {
+    @apply bg-[hsl(var(--destructive)_/_0.12)] text-destructive;
+  }
+
+  /* Signature element: the Detect > Decide > Recover rail that tracks real
+     pipeline progress through the page. */
+  .pipeline-rail {
+    @apply relative;
+  }
+  .pipeline-rail::before {
+    content: "";
+    @apply absolute left-[15px] top-0 bottom-0 w-px bg-border;
+  }
+  .pipeline-node {
+    @apply relative flex items-start gap-4 pb-10 last:pb-0;
+  }
+  .pipeline-node .node-dot {
+    @apply relative z-10 flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2
+           border-border bg-background text-xs font-bold text-muted-foreground transition-all duration-300;
+  }
+  .pipeline-node.is-active .node-dot {
+    @apply border-primary bg-primary text-primary-foreground;
+    box-shadow: 0 0 0 4px hsl(var(--primary) / 0.15);
+  }
+  .pipeline-node.is-done .node-dot {
+    @apply border-[hsl(var(--chart-1))] bg-[hsl(var(--chart-1))] text-white;
+  }
+
+  /* Upload dropzone */
+  .dropzone {
+    @apply relative flex flex-col items-center justify-center gap-3 rounded-xl border-2 border-dashed
+           border-border bg-muted/40 px-6 py-14 text-center transition-colors duration-200;
+  }
+  .dropzone.is-dragover {
+    @apply border-primary bg-primary/5;
+  }
+
+  /* Custom scrollbar for recent-analysis list */
+  .thin-scroll::-webkit-scrollbar {
+    width: 6px;
+  }
+  .thin-scroll::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-border;
+  }
+
+  /* Number readouts (stats, confidence) use the mono face */
+  .stat-figure {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Bootstrap's modal is used only for the auth dialog's focus/backdrop
+   handling; it doesn't know about our .dark class, so patch the couple
+   of bits (close icon, backdrop) that would otherwise look wrong. */
+.dark .btn-close {
+  filter: invert(1) grayscale(100%);
+}
+.modal-backdrop.show {
+  opacity: 0.6;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .bg-grid {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}

@@ -1,0 +1,66 @@
+from sqlalchemy.orm import Session
+
+from app.models.recovery_action_db import RecoveryActionDB
+from app.models.transaction_db import TransactionDB
+
+
+def execute_recovery_action(
+    db: Session,
+    transaction: TransactionDB,
+) -> RecoveryActionDB:
+
+    action_id = f"ACT_{transaction.transaction_id}"
+
+    existing_action = (
+        db.query(RecoveryActionDB)
+        .filter(
+            RecoveryActionDB.transaction_id
+            == transaction.transaction_id
+        )
+        .first()
+    )
+
+    if existing_action:
+        return existing_action
+
+    recovery_action = RecoveryActionDB(
+        action_id=action_id,
+        transaction_id=transaction.transaction_id,
+        customer_id=transaction.customer_id,
+        action=transaction.recommended_action,
+        channel=transaction.recovery_channel,
+        amount=transaction.amount,
+        status="created",
+    )
+
+    db.add(recovery_action)
+    db.commit()
+    db.refresh(recovery_action)
+
+    return recovery_action
+
+
+def update_recovery_action_status(
+    db: Session,
+    action_id: str,
+    status: str,
+) -> RecoveryActionDB | None:
+
+    recovery_action = (
+        db.query(RecoveryActionDB)
+        .filter(
+            RecoveryActionDB.action_id
+            == action_id
+        )
+        .first()
+    )
+
+    if not recovery_action:
+        return None
+
+    recovery_action.status = status
+
+    db.commit()
+    db.refresh(recovery_action)
+
+    return recovery_action

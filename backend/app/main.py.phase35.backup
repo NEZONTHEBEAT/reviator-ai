@@ -1,0 +1,66 @@
+from fastapi import FastAPI
+
+from app.api.routes import router as transaction_router
+
+from app.core.database import Base, engine
+
+from app.models.customer import CustomerDB
+from app.models.transaction_db import TransactionDB
+from app.models.recovery_action_db import RecoveryActionDB
+
+
+# --------------------------------
+# Create database tables
+# --------------------------------
+
+Base.metadata.create_all(
+    bind=engine
+)
+
+
+# --------------------------------
+# FastAPI Application
+# --------------------------------
+
+app = FastAPI(
+    title="Reviator AI",
+    description="AI-Powered Revenue Recovery Agent",
+    version="1.0.0",
+)
+
+
+# --------------------------------
+# Include API Routes
+# --------------------------------
+
+app.include_router(
+    transaction_router
+)
+
+
+# --------------------------------
+# Root Endpoint
+# --------------------------------
+
+@app.get("/")
+async def root():
+
+    return {
+        "project": "Reviator AI",
+        "description": "AI-Powered Revenue Recovery Agent",
+        "tagline": "Detect. Decide. Recover.",
+        "status": "running",
+    }
+
+
+# --------------------------------
+# Health Check
+# --------------------------------
+
+@app.get("/api/health")
+async def health_check():
+
+    return {
+        "status": "healthy",
+        "service": "reviator-ai-backend",
+    }

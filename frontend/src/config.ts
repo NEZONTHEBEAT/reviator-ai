@@ -1,0 +1,37 @@
+/**
+ * Central config for the Reviator AI frontend.
+ *
+ * Endpoints below are confirmed against the real backend (routes.py /
+ * Swagger UI) — not assumptions. Only `API_BASE_URL` should ever need
+ * changing (e.g. for deployment).
+ */
+
+export const API_BASE_URL: string =
+  (window as any).__REVIATOR_API_BASE__ || "http://localhost:8000";
+
+export const ENDPOINTS = {
+  health: "/api/health",
+  analyseTransaction: "/api/transactions/",
+  runAgent: (transactionId: string) => `/api/transactions/${encodeURIComponent(transactionId)}/agent`,
+  getTransaction: (transactionId: string) => `/api/transactions/${encodeURIComponent(transactionId)}`,
+  executeRecovery: (transactionId: string) => `/api/transactions/${encodeURIComponent(transactionId)}/execute`,
+  updateActionStatus: (actionId: string) =>
+    `/api/transactions/recovery-actions/${encodeURIComponent(actionId)}/status`,
+  getRecoveryActions: (transactionId: string) =>
+    `/api/transactions/${encodeURIComponent(transactionId)}/recovery-actions`,
+  // Not present on the backend yet — see README "Optional backend addition".
+  // Kept here so wiring it up later is a one-line change.
+  authGoogle: "/api/auth/google",
+  otpSend: "/api/auth/otp/send",
+  otpVerify: "/api/auth/otp/verify",
+} as const;
+
+/** How often the navbar re-checks backend connectivity, in ms. */
+export const HEALTH_POLL_INTERVAL = 15_000;
+
+export const THEME_STORAGE_KEY = "reviator-theme";
+export const HISTORY_STORAGE_KEY = "reviator-transaction-history";
+export const HISTORY_LIMIT = 50;
+
+/** Fill in your real Google OAuth Web Client ID to enable Google Sign-In. */
+export const GOOGLE_CLIENT_ID = "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com";
