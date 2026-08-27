@@ -127,13 +127,13 @@ Key metrics will include:
 ### Example Evaluation
 
 ```text
-Transactions Analysed : 10,000
-Failed Payments       : 1,240
-Revenue at Risk       : ₹X
-Recovery Attempts     : X
-Successful Recoveries : X
-Revenue Recovered     : ₹X
-Recovery Rate         : X%
+Transactions Analysed: 10,000
+Failed Payments      : 1,240
+Revenue at Risk      : ₹X
+Recovery Attempts    : X
+Successful Recoveries: X
+Revenue Recovered    : ₹X
+Recovery Rate        : X%
 ```
 
 > Metrics shown above are placeholders and will be replaced with actual evaluation results.
@@ -227,7 +227,7 @@ Recovery Rate         : X%
 * Git
 * GitHub
 * Docker
-* Vercel / Render
+* Render
 
 > The final technology stack may evolve during development based on project requirements.
 
