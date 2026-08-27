@@ -45,6 +45,10 @@ app.add_middleware(
         "http://127.0.0.1:5500",      # frontend port
         "http://localhost:8000",
         "http://127.0.0.1:8000",
+
+        # Production frontend
+    "https://reviator-ai.netlify.app",
+        
     ],
     allow_credentials=True,
     allow_methods=["*"],
