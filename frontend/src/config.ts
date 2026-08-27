@@ -1,16 +1,12 @@
-``` ts
 /**
  * Central config for the Reviator AI frontend.
  *
- * API requests are sent to the deployed Render backend in production.
- * For local development, Vite uses VITE_API_BASE_URL from .env.local.
+ * API requests are sent to the deployed Render backend.
  */
 
-const DEFAULT_API_BASE_URL = "https://reviator-ai-backend.onrender.com";
-
 export const API_BASE_URL: string =
-  (import.meta.env.VITE_API_BASE_URL as string | undefined) ||
-  DEFAULT_API_BASE_URL;
+  (window as any).__REVIATOR_API_BASE__ ||
+  "https://reviator-ai-backend.onrender.com";
 
 export const ENDPOINTS = {
   health: "/api/health",
@@ -32,8 +28,12 @@ export const ENDPOINTS = {
   getRecoveryActions: (transactionId: string) =>
     `/api/transactions/${encodeURIComponent(transactionId)}/recovery-actions`,
 
+  // Google OAuth — backend implementation required
   authGoogle: "/api/auth/google",
+
+  // OTP — backend implementation required
   otpSend: "/api/auth/otp/send",
+
   otpVerify: "/api/auth/otp/verify",
 } as const;
 
@@ -44,7 +44,9 @@ export const THEME_STORAGE_KEY = "reviator-theme";
 export const HISTORY_STORAGE_KEY = "reviator-transaction-history";
 export const HISTORY_LIMIT = 50;
 
-/** Set the real Google OAuth Web Client ID to enable Google Sign-In. */
+/**
+ * Google OAuth Web Client ID.
+ * Replace this placeholder after creating the OAuth client.
+ */
 export const GOOGLE_CLIENT_ID =
   "YOUR_GOOGLE_OAUTH_CLIENT_ID.apps.googleusercontent.com";
-```
