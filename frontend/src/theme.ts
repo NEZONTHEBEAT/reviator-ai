@@ -1,7 +1,5 @@
 import { THEME_STORAGE_KEY } from "./config.js";
-
 export type Theme = "light" | "dark";
-
 const THEME_EVENT = "reviator:theme-change";
 
 /**
@@ -12,6 +10,7 @@ const THEME_EVENT = "reviator:theme-change";
  *   (Matches the requirement: theme never changes on refresh, only on
  *   manual toggle.)
  */
+
 function resolveInitialTheme(): Theme {
   const stored = localStorage.getItem(THEME_STORAGE_KEY);
   if (stored === "light" || stored === "dark") return stored;
@@ -31,6 +30,7 @@ function apply(theme: Theme): void {
 /** Call once on boot. Note: index.html also inlines a tiny sync copy of
  * this logic in <head> to avoid a flash of the wrong theme before this
  * module loads — keep the two in sync if you change the storage key. */
+
 export function initTheme(): Theme {
   const theme = resolveInitialTheme();
   apply(theme);
