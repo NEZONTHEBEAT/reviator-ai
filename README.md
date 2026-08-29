@@ -12,6 +12,12 @@ The goal is simple:
 
 ---
 
+<img width="1893" height="931" alt="front " src="https://github.com/user-attachments/assets/1b498e64-37ce-46cb-a5cd-c29eec3add71" />
+
+<img width="1918" height="1078" alt="backend terminal for github" src="https://github.com/user-attachments/assets/3a25f4b4-35f6-43fd-ad3d-dd5f629ca943" />
+
+---
+
 ## Problem
 
 Failed payments, payment retries, and checkout abandonment can result in significant revenue leakage for businesses.
@@ -186,14 +192,6 @@ Recovery Rate        : X%
                          │ Revenue Analytics     │
                          └───────────────────────┘
 ```
-
----
-
-<img width="1920" height="6172" alt="Full Page SS" src="https://github.com/user-attachments/assets/c4dcd71a-0ad4-48f0-9b70-496f7e1d17e8" />
-
-<img width="1893" height="931" alt="front " src="https://github.com/user-attachments/assets/1b498e64-37ce-46cb-a5cd-c29eec3add71" />
-
-<img width="1918" height="1078" alt="backend terminal for github" src="https://github.com/user-attachments/assets/3a25f4b4-35f6-43fd-ad3d-dd5f629ca943" />
 
 ---
 
