@@ -130,6 +130,11 @@ Key metrics will include:
 * Recovery rate
 * Recovery success by failure type
 
+---
+
+<img width="1917" height="923" alt="image" src="https://github.com/user-attachments/assets/82143896-eeeb-42ee-9e91-845c17066690" />
+
+---
 ### Example Evaluation
 
 ```text
