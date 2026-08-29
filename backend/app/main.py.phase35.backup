@@ -1,13 +1,10 @@
 from fastapi import FastAPI
-
 from app.api.routes import router as transaction_router
-
 from app.core.database import Base, engine
 
 from app.models.customer import CustomerDB
 from app.models.transaction_db import TransactionDB
 from app.models.recovery_action_db import RecoveryActionDB
-
 
 # --------------------------------
 # Create database tables
@@ -16,7 +13,6 @@ from app.models.recovery_action_db import RecoveryActionDB
 Base.metadata.create_all(
     bind=engine
 )
-
 
 # --------------------------------
 # FastAPI Application
@@ -28,7 +24,6 @@ app = FastAPI(
     version="1.0.0",
 )
 
-
 # --------------------------------
 # Include API Routes
 # --------------------------------
@@ -36,7 +31,6 @@ app = FastAPI(
 app.include_router(
     transaction_router
 )
-
 
 # --------------------------------
 # Root Endpoint
@@ -51,7 +45,6 @@ async def root():
         "tagline": "Detect. Decide. Recover.",
         "status": "running",
     }
-
 
 # --------------------------------
 # Health Check
